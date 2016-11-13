@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Smart-Belette - le site pour jouer a la belotte entre collègues !</title>
+    <style type="text/css" media="screen">
+        html {
+        }
+        .pointer {
+        }
+        body {
+            color: #aaa;
+            font-family: "Helvetica Neue", sans-serif;
+            font-weight:100;
+        }
+        h1 {
+            font-weight:100;
+            margin: 0;
+            text-align:center;
+            width:50%;
+        }
+        .center-relative {
+            position:relative;
+            top:50%;
+            transform:translateY(-50%);
+        }
+        h2 {
+
+            margin: 0;
+            width:30%;
+            font-weight:100;
+        }
+        .input-form-container {
+            margin:0px;
+            padding: 10px 17px;
+            height:35px;
+        }
+        #title-container {
+            width:100%;
+            margin: 0px auto 7px auto;
+            height:70px;
+            border: 1px solid #ccc;
+        }
+        .separator {
+            background-color:#ccc;
+            height:1px;
+            width:25%;
+        }
+        .left {
+            float:left; 
+        }
+        .right {
+            float:right;
+        }
+        #content {
+            position:absolute;
+            top:50%;
+            left:50%;
+            width:80%;
+            max-width: 400px;
+            transform: translateY(-50%) translateX(-50%);
+        }
+        #success-content {
+            display:none;
+        }
+        .input-form {
+            color:#aaa;
+            width:69%;
+            font-size:18px;
+            font-weight:100;
+            font-family:"Helvetica Neue" sans-serif;
+            border:none;
+            border-bottom:1px solid #aaa;
+            padding:6px 0px;
+        }
+        .input-form:focus {
+            box-shadow:none;
+            outline:none;
+        }
+        #form-container {
+            border: 1px solid #ccc;
+        }
+        #message-warning {
+            margin-bottom: 7px;
+            opacity: 0;
+            transition: 1s all ease-out;
+            text-align:center;
+            padding : 2px 0px;
+            border: 1px solid rgb(255, 207, 207);
+            background-color: rgb(255, 244, 244);
+            color: rgb(255, 91, 91);
+        }
+        #validate-container {
+            width: 50%;
+            margin: 50px auto 0px auto;
+            text-align:center;
+            cursor: pointer;
+            padding:10px;
+            border: 1px solid #ccc;
+        }
+        #validate-container:active {
+            border-color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="title-container">
+            <div class="separator left center-relative"></div>
+            <h1 class="left center-relative">Secret santa</h1>
+            <div class="separator right center-relative"></div>
+        </div>
+        <div id="message-warning"> 
+            Rempli chacun des champs s'il te plait !
+        </div>
+        <div id="form-container">
+            <div class="input-form-container">
+                <h2 class="left center-relative">Nom:</h2>
+                <input id="input-name" class="center-relative right input-form"/>
+            </div>
+            <div class="input-form-container">
+                <h2 class="center-relative left">Prenom:</h2>
+                <input id="input-surname" class="center-relative right input-form"/>
+            </div>
+            <div class="input-form-container">
+                <h2 class="left center-relative">Mail:</h2>
+                <input id="input-mail" class="center-relative right input-form"/>
+            </div>
+        </div>
+        <div id="validate-container">
+            <div id="validate" onclick="post();">Go</div>
+        </div>
+    </div>
+    <div id="success-content">
+        <img alt="Hey ! :)" style="margin:30px auto; border:1px solid #ccc; padding:5px; width:40%" src="pic/santa.jpeg"/>
+    </div>
+</body>
+<script>
+    function postBodyFactory() {
+        var self = {
+            body: {
+                name:'',
+                surname:'',
+                mail:''
+            }, 
+            fields: ['name', 'surname', 'mail'],
+            init: function() {
+               self.fields.map(function(field) {
+                    var el = document.getElementById('input-'+field);
+                    self.body[field] = el.value;
+                });
+            },
+            check: function() {
+                return self.fields.some(function(field) { 
+                    return self.body[field] === "";
+                });
+            }
+        };
+        return self;
+    }
+
+    function post() {
+        var messageWarning = document.getElementById('message-warning');
+        messageWarning.style.opacity = 0;
+        var postBody = postBodyFactory();
+        postBody.init();
+        if (!postBody.check()) {
+            console.log('ajax');
+        }
+        else {
+            messageWarning.style.opacity = 1;
+        }
+    }
+
+</script>
+</html>
+
+
+
