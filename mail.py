@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 
 import smtplib
-
+import time
 from email.mime.text import MIMEText
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
@@ -11,9 +11,9 @@ from random import shuffle
 
 MAILS_PATH = 'mails.csv'
 BODY_MSG = 'Hello %s, \n Your secret target is %s %s'
-FROM = 'xajouppe@gmail.com'
+FROM = 'xjouppe@smartadserver.com'
 TITLE = 'Secret Santa !'
-PSWD = input('Please enter password:')
+PSWD = 'prune&K6'
 
 def parse():
     fp = open(MAILS_PATH, 'rb')
@@ -29,17 +29,19 @@ def send_all(data):
     for pos, value in enumerate(data):
         curr = value
         next = data[0] if pos+1>=len(data) else data[pos+1]
-        msg = BODY_MSG % (curr[0], next[0], next[1])
+        msg = BODY_MSG % (curr[1], next[1], next[0])
         to_mail = curr[2]
-        send(msg,TITLE, PSWD, FROM, to_mail)
+        print(curr[1], next[1])
+        #send(msg,TITLE, PSWD, FROM, to_mail)
 
 def send(body_msg, title_msg, passwd, from_mail, to_mail):
-
+    time.sleep(1)
+    print(to_mail)
     msg = MIMEMultipart()
     msg['From'] = 'santa@smartadserver.com'
     msg['To'] = to_mail
     msg['Subject'] = title_msg
-    msg.add_header('From', 'sanata@smartadserver.com')
+    msg.add_header('From', 'santa@smartadserver.com')
 
     msg.attach(MIMEText(body_msg))
 
@@ -53,4 +55,3 @@ def send(body_msg, title_msg, passwd, from_mail, to_mail):
 
 if __name__ == '__main__':
     parse()
-    #send(body_msg, title_msg, passwd, from_mail, to_mail)
