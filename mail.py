@@ -11,9 +11,9 @@ from random import shuffle
 
 MAILS_PATH = 'mails.csv'
 BODY_MSG = 'Hello %s, \n Your secret target is %s %s'
-FROM = 'xjouppe@smartadserver.com'
+FROM = ''
 TITLE = 'Secret Santa !'
-PSWD = 'prune&K6'
+PSWD = ''
 
 def parse():
     fp = open(MAILS_PATH, 'rb')
@@ -38,10 +38,10 @@ def send(body_msg, title_msg, passwd, from_mail, to_mail):
     time.sleep(1)
     print(to_mail)
     msg = MIMEMultipart()
-    msg['From'] = 'santa@smartadserver.com'
+    msg['From'] = ''
     msg['To'] = to_mail
     msg['Subject'] = title_msg
-    msg.add_header('From', 'santa@smartadserver.com')
+    msg.add_header('From', '')
 
     msg.attach(MIMEText(body_msg))
 
